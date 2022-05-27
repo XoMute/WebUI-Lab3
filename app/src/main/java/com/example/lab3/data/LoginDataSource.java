@@ -20,7 +20,7 @@ public class LoginDataSource {
     public Result<LoggedInUser> login(String username, String password) {
 
         try {
-            HttpUrl.Builder httpBuilder = HttpUrl.parse("http://10.0.2.2:8080/login")
+            HttpUrl.Builder httpBuilder = HttpUrl.parse("http://" + HttpClient.host + ":8080/login")
                     .newBuilder()
                     .addQueryParameter("username", username)
                     .addQueryParameter("password", password);
@@ -45,7 +45,7 @@ public class LoginDataSource {
         try {
             Moshi moshi = new Moshi.Builder().build();
             JsonAdapter<UserDTO> userDTOJsonAdapter = moshi.adapter(UserDTO.class);
-            HttpUrl.Builder httpBuilder = HttpUrl.parse("http://10.0.2.2:8080/users")
+            HttpUrl.Builder httpBuilder = HttpUrl.parse("http://" + HttpClient.host + ":8080/users")
                     .newBuilder();
             RequestBody body = RequestBody.create(
                     userDTOJsonAdapter

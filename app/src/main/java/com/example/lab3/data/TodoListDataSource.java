@@ -21,7 +21,7 @@ public class TodoListDataSource {
 
     public Result<List<TodoListItem>> getTodoList(LoggedInUser user) {
         try {
-            HttpUrl.Builder httpBuilder = HttpUrl.parse("http://10.0.2.2:8080/users/" + user.getId() + "/tasks")
+            HttpUrl.Builder httpBuilder = HttpUrl.parse("http://" + HttpClient.host + ":8080/users/" + user.getId() + "/tasks")
                     .newBuilder();
             Request request = new Request.Builder()
                     .url(httpBuilder.build())
@@ -45,7 +45,7 @@ public class TodoListDataSource {
             JsonAdapter<TodoListItem> listItemJsonAdapter = moshi.adapter(TodoListItem.class);
             JsonAdapter<TodoListItemDTO> listItemDTOJsonAdapter = moshi.adapter(TodoListItemDTO.class);
             TodoListItemDTO newTask = new TodoListItemDTO(taskText, false);
-            HttpUrl.Builder httpBuilder = HttpUrl.parse("http://10.0.2.2:8080/users/" + user.getId() + "/tasks")
+            HttpUrl.Builder httpBuilder = HttpUrl.parse("http://" + HttpClient.host + ":8080/users/" + user.getId() + "/tasks")
                     .newBuilder();
             RequestBody body = RequestBody.create(
                     listItemDTOJsonAdapter.toJson(newTask),
@@ -67,7 +67,7 @@ public class TodoListDataSource {
         try {
             Moshi moshi = new Moshi.Builder().build();
             JsonAdapter<TodoListItem> listItemJsonAdapter = moshi.adapter(TodoListItem.class);
-            HttpUrl.Builder httpBuilder = HttpUrl.parse("http://10.0.2.2:8080/users/" + user.getId() + "/tasks/" + task.getId())
+            HttpUrl.Builder httpBuilder = HttpUrl.parse("http://" + HttpClient.host + ":8080/users/" + user.getId() + "/tasks/" + task.getId())
                     .newBuilder();
             RequestBody body = RequestBody.create(null, new byte[]{});
             Request request = new Request.Builder()
